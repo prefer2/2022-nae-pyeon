@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 import PageTitleWithBackButton from "@/components/PageTitleWithBackButton";
 
 export default {
@@ -7,7 +8,9 @@ export default {
 };
 
 const Template = (args) => (
-  <PageTitleWithBackButton {...args}></PageTitleWithBackButton>
+  <MemoryRouter initialEntries={["/teams/1"]}>
+    <PageTitleWithBackButton {...args}></PageTitleWithBackButton>
+  </MemoryRouter>
 );
 
 export const Default = Template.bind({});
