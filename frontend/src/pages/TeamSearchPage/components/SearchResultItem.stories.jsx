@@ -3,7 +3,7 @@ import SearchResultItem from "@/pages/TeamSearchPage/components/SearchResultItem
 
 export default {
   component: SearchResultItem,
-  title: "SearchResultItem",
+  title: "TeamSearchPage/SearchResultItem",
 };
 
 const Template = (args) => <SearchResultItem {...args}></SearchResultItem>;

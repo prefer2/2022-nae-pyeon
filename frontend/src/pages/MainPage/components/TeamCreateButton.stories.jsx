@@ -4,7 +4,7 @@ import TeamCreateButton from "@/pages/MainPage/components/TeamCreateButton";
 
 export default {
   component: TeamCreateButton,
-  title: "TeamCreateButton",
+  title: "MainPage/TeamCreateButton",
 };
 
 const Template = (args) => (

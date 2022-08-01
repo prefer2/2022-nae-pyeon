@@ -3,7 +3,7 @@ import RollingpaperListItem from "@/pages/TeamDetailPage/components/Rollingpaper
 
 export default {
   component: RollingpaperListItem,
-  title: "RollingpaperListItem",
+  title: "RollingpaperPage/RollingpaperListItem",
 };
 
 const Template = (args) => (

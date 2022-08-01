@@ -4,7 +4,7 @@ import MyTeamCard from "@/pages/MainPage/components/MyTeamCard";
 
 export default {
   component: MyTeamCard,
-  title: "MyTeamCard",
+  title: "MainPage/MyTeamCard",
 };
 
 const Template = (args) => (

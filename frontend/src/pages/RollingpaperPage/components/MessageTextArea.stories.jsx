@@ -3,7 +3,7 @@ import MessageTextArea from "@/pages/RollingpaperPage/components/MessageTextArea
 
 export default {
   component: MessageTextArea,
-  title: "MessageTextArea",
+  title: "RollingpaperPage/MessageTextArea",
 };
 
 const Template = (args) => <MessageTextArea {...args}></MessageTextArea>;

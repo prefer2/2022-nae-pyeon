@@ -4,7 +4,7 @@ import TeamJoinModalForm from "@/pages/TeamDetailPage/components/TeamJoinModalFo
 
 export default {
   component: TeamJoinModalForm,
-  title: "TeamJoinModalForm",
+  title: "RollingpaperPage/TeamJoinModalForm",
 };
 
 const Template = (args) => (

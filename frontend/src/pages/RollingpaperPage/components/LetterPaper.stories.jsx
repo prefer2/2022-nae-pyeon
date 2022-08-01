@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 
 export default {
   component: LetterPaper,
-  title: "LetterPaper",
+  title: "RollingpaperPage/LetterPaper",
 };
 
 const Template = (args) => {

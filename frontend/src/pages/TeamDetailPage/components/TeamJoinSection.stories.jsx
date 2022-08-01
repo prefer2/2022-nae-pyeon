@@ -3,7 +3,7 @@ import TeamJoinSection from "@/pages/TeamDetailPage/components/TeamJoinSection";
 
 export default {
   component: TeamJoinSection,
-  title: "TeamJoinSection",
+  title: "RollingpaperPage/TeamJoinSection",
 };
 
 const Template = (args) => {
