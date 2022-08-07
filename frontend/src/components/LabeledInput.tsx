@@ -7,30 +7,17 @@ interface LabeledInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   labelText: string;
   errorMessage?: string;
-  setValue: (value: string) => void;
 }
 
 const LabeledInput = ({
-  type = "text",
   labelText,
-  placeholder,
-  pattern,
   errorMessage,
-  value,
-  setValue,
+  ...rest
 }: LabeledInputProps) => {
   return (
     <StyledLabel>
       {labelText}
-      <input
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        pattern={pattern}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-      />
+      <input {...rest} />
       <div>
         <ErrorIcon />
         {errorMessage}

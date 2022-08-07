@@ -1,76 +1,33 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 
 import SearchIcon from "@/assets/icons/bx-search.svg";
 
 interface AutoCompleteInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  labelText: string;
-  searchKeywordList: string[];
-  setValue: (value: string) => void;
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onClick"> {
+  labelText?: string;
+  autoCompleteList: string[];
+  isOpen: boolean;
+  onClick: React.MouseEventHandler<HTMLElement>;
 }
 
-const AutoCompleteInput = ({
-  labelText,
-  value,
-  setValue,
-  searchKeywordList,
-}: AutoCompleteInputProps) => {
-  const [autocompleteList, setAutocompleteList] = useState(searchKeywordList);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const AutoCompleteInputRef = useRef(null);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-
-    const newAutocompleteList = searchKeywordList.filter((keyword) =>
-      keyword.includes(e.target.value)
-    );
-    setAutocompleteList(newAutocompleteList);
-  };
-
-  const handleDocumentClick = (e: MouseEvent) => {
-    if (AutoCompleteInputRef.current === e.target) {
-      return;
-    }
-    setIsOpen(false);
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleDocumentClick);
-
-    return () => {
-      document.removeEventListener("click", handleDocumentClick);
-    };
-  }, []);
-
+const AutoCompleteInput = React.forwardRef<
+  HTMLInputElement,
+  AutoCompleteInputProps
+>(({ labelText, autoCompleteList, isOpen, onClick, ...rest }, ref) => {
   return (
     <StyledLabel>
       {labelText}
       <StyledInputContainer>
         <SearchIcon />
-        <input
-          ref={AutoCompleteInputRef}
-          value={value}
-          onChange={handleInputChange}
-          onFocus={() => {
-            setIsOpen(true);
-          }}
-        />
+        <input ref={ref} {...rest} />
       </StyledInputContainer>
-      {isOpen && autocompleteList.length > 0 && (
+      {isOpen && autoCompleteList.length > 0 && (
         <StyledAutocompleteList>
-          {autocompleteList.map((autocompleteListItem) => (
+          {autoCompleteList.map((autocompleteListItem) => (
             <StyledAutocompleteListItem
               key={autocompleteListItem}
-              onClick={() => {
-                const newAutocompleteList = searchKeywordList.filter(
-                  (keyword) => keyword.includes(autocompleteListItem)
-                );
-                setValue(autocompleteListItem);
-                setAutocompleteList(newAutocompleteList);
-              }}
+              onClick={onClick}
             >
               {autocompleteListItem}
             </StyledAutocompleteListItem>
@@ -79,7 +36,7 @@ const AutoCompleteInput = ({
       )}
     </StyledLabel>
   );
-};
+});
 
 const StyledLabel = styled.label`
   position: relative;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "@emotion/styled";
@@ -13,6 +13,8 @@ import Button from "@/components/Button";
 
 import { Rollingpaper, CustomError } from "@/types";
 import { REGEX } from "@/constants";
+import useAutoCompleteInput from "@/hooks/useAutoCompleteInput";
+import useInput from "@/hooks/useInput";
 
 interface TeamMemberResponse {
   members: TeamMember[];
@@ -26,15 +28,35 @@ interface TeamMember {
 const RollingpaperCreationPage = () => {
   const navigate = useNavigate();
   const { teamId } = useParams();
-  const [rollingpaperTitle, setRollingpaperTitle] = useState("");
-  const [rollingpaperTo, setRollingpaperTo] = useState("");
+  const { value: rollingpaperTitle, onChange: onChangeRollingpaperTitle } =
+    useInput("");
+  const {
+    value: rollingpaperTo,
+    onChange: onChangeRollingpaperTo,
+    autoCompleteList,
+    isOpen,
+    ref,
+    onFocus,
+    onClick,
+    setKeywordList,
+  } = useAutoCompleteInput();
 
   const {
     isLoading,
     isError,
     data: teamMemberResponse,
-  } = useQuery<TeamMemberResponse>(["team-member", teamId], () =>
-    appClient.get(`/teams/${teamId}/members`).then((response) => response.data)
+  } = useQuery<TeamMemberResponse>(
+    ["team-member", teamId],
+    () =>
+      appClient
+        .get(`/teams/${teamId}/members`)
+        .then((response) => response.data),
+    {
+      onSuccess: (data) => {
+        const nicknameList = data.members.map((member) => member.nickname);
+        setKeywordList(nicknameList);
+      },
+    }
   );
 
   const { mutate: postRollingpaper } = useMutation(
@@ -111,16 +133,18 @@ const RollingpaperCreationPage = () => {
         <LabeledInput
           labelText="롤링페이퍼 제목"
           value={rollingpaperTitle}
-          setValue={setRollingpaperTitle}
           pattern={REGEX.ROLLINGPAPER_TITLE.source}
+          onChange={onChangeRollingpaperTitle}
         />
         <AutoCompleteInput
           labelText="받는 사람"
           value={rollingpaperTo}
-          setValue={setRollingpaperTo}
-          searchKeywordList={teamMemberResponse.members.map(
-            (member) => member.nickname
-          )}
+          autoCompleteList={autoCompleteList}
+          isOpen={isOpen}
+          ref={ref}
+          onChange={onChangeRollingpaperTo}
+          onFocus={onFocus}
+          onClick={onClick}
         />
         <Button
           type="submit"
