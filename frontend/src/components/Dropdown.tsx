@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
+import useDropdown from "@/hooks/useDropdown";
 
 interface optionList {
   option: string;
@@ -12,16 +13,7 @@ interface DropdownProp {
 }
 
 const Dropdown = ({ DropdownButton, optionList }: DropdownProp) => {
-  const [isOpened, setIsOpened] = useState(false);
-
-  const handleButtonClick = () => {
-    setIsOpened((prev) => !prev);
-  };
-
-  const handleOptionClick = (callback: () => void) => {
-    setIsOpened(false);
-    callback();
-  };
+  const { isOpened, handleButtonClick, handleOptionClick } = useDropdown();
 
   return (
     <StyledDropdown>
