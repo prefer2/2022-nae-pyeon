@@ -11,17 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Use Node.js 17.4.0
-        uses: actions/setup-node@v3
-        with:
-          node-version: 17.4.0
-      - name: Install packages and Build
-        run: |
-          npm install
-          npm run build
-        working-directory: ${{ env.working-directory }}
-
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          start: npm start
+          start: yarn start
+          with:
+            browser: chrome
+            headless: true
