@@ -6,7 +6,18 @@ describe("로그인한 사용자 동작", () => {
     cy.contains("카카오로 시작하기").should("be.visible");
     cy.setCookie("accessToken", "mockAccessToken");
     cy.getCookie("accessToken").should("exist");
+    cy.reload();
+    cy.intercept("GET", "/api/v1/teams/me", {
+      statusCode: 200,
+      body: {
+        totalCount: 0,
+        currentPage: 0,
+        teams: [],
+      },
+    });
+    cy.contains("아직 참여한 모임이 없어요!").should("be.visible");
   });
+
   // beforeEach(() => {
   //   Cypress.Cookies.debug(true);
   //   cy.clearCookies();
