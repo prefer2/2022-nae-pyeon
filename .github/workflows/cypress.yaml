@@ -1,20 +1,20 @@
-name: Cypress Tests
-
+name: Create Cypress report
 on: [push]
 
 jobs:
-  cypress-run:
+  cypress-e2e-chrome88:
+    name: Run on Chrome 88
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./frontend
+    container: cypress/browsers:node14.17.0-chrome88-ff89
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v4
-        with:
-          start: yarn start
-          with:
-            browser: chrome
-            headless: true
+      - name: Install a project with a clean slate
+        run: |
+          npm ci
+          $(npm bin)/cypress cache path
+          $(npm bin)/cypress cache list
+          $(npm bin)/cypress verify
+      - name: Run Cypress tests
+        run: yarn cypress:run
+        continue-on-error: true
