@@ -3,6 +3,7 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    container: cypress/browsers:node12.18.3-chrome87-ff82
     env:
       working-directory: ./frontend
     # let's make sure our tests pass on Chrome browser
@@ -15,7 +16,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Install packages and Build
+
+      - name: Install packages
         run: |
           npm install
         working-directory: ${{ env.working-directory }}
@@ -23,7 +25,7 @@ jobs:
       - uses: cypress-io/github-action@v4
         with:
           working-directory: ${{ env.working-directory }}
-          build: npm run build
+          build: npm build
           start: npm run start
           browser: chrome
           wait-on: "http://localhost:3000"
