@@ -19,9 +19,7 @@ describe("로그인한 사용자 동작", () => {
             email: "email@email.com",
           };
           return res.once(ctx.json(result));
-        })
-      );
-      worker.use(
+        }),
         rest.get("/api/v1/teams/me", (req, res, ctx) => {
           const page = +req.url.searchParams.get("page");
           const count = +req.url.searchParams.get("count");
@@ -34,7 +32,9 @@ describe("로그인한 사용자 동작", () => {
         })
       );
     });
-    cy.contains("아직 참여한 모임이 없어요!").should("be.visible");
+    cy.wait(2000).then(() => {
+      cy.contains("아직 참여한 모임이 없어요!").should("be.visible");
+    });
   });
 
   // it("방문하기.", () => {
