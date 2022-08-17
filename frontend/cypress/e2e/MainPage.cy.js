@@ -38,7 +38,7 @@ describe("로그인한 사용자 동작", () => {
   // });
 
   it("방문하기", () => {
-    cy.intercept("GET", "/api/v1/members/me", {
+    cy.intercept("GET", "https://neapyeon.site/api/v1/members/me", {
       body: {
         id: 123,
         username: "승팡",
