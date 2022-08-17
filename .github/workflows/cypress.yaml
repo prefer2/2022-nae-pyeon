@@ -18,11 +18,10 @@ jobs:
       - name: Install packages and Build
         run: |
           npm install
-          npm run build
         working-directory: ${{ env.working-directory }}
 
       - uses: cypress-io/github-action@v4
         with:
           working-directory: ${{ env.working-directory }}
           start: npm run start
-          browser: chrome
+          wait-on: "http://localhost:3000"
