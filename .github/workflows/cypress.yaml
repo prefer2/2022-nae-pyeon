@@ -9,6 +9,10 @@ jobs:
     name: E2E on Chrome
     steps:
       - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Check formatting
+        run: yarn run format:check
       - uses: cypress-io/github-action@v4
         with:
           working-directory: ${{ env.working-directory }}
