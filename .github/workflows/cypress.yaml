@@ -19,7 +19,7 @@ jobs:
 
       - name: Install packages
         run: |
-          npm install
+          npm ci
         working-directory: ${{ env.working-directory }}
 
       - uses: cypress-io/github-action@v4
