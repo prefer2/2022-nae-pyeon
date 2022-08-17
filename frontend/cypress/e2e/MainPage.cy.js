@@ -4,6 +4,8 @@ describe("로그인한 사용자 동작", () => {
   it("방문하기.", () => {
     cy.visit("http://localhost:3000");
     cy.contains("카카오로 시작하기").should("be.visible");
+    cy.setCookie("accessToken", "mockAccessToken");
+    cy.getCookie("accessToken").should("exist");
   });
   // beforeEach(() => {
   //   Cypress.Cookies.debug(true);
