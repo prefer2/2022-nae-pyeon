@@ -12,10 +12,10 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: Use Node.js 14.0.0
+      - name: Use Node.js 18.0.0
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
 
       - name: Install packages
         run: |
