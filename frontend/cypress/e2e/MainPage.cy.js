@@ -55,10 +55,8 @@ describe("로그인한 사용자 동작", () => {
       },
     }).as("getMyTeams");
 
-    cy.wait("@getMe").then(() => {
-      cy.wait("@getMyTeams").then(() => {
-        cy.contains("아직 참여한 모임이 없어요!").should("be.visible");
-      });
+    cy.wait("@getMyTeams").then(() => {
+      cy.contains("아직 참여한 모임이 없어요!").should("be.visible");
     });
   });
 
