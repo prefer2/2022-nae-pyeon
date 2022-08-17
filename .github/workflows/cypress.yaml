@@ -15,6 +15,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+      - name: Install packages and Build
+        run: |
+          npm install
+          npm run build
+        working-directory: ${{ env.working-directory }}
 
       - uses: cypress-io/github-action@v4
         with:
