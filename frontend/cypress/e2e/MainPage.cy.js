@@ -55,9 +55,7 @@ describe("로그인한 사용자 동작", () => {
       },
     }).as("getMyTeams");
 
-    cy.wait("@getMyTeams").then(() => {
-      cy.contains("초기 로딩 중").should("be.visible");
-    });
+    cy.contains("초기 로딩 중").should("be.visible");
   });
 
   // beforeEach(() => {
