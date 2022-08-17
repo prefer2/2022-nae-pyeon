@@ -8,13 +8,12 @@ jobs:
     # let's make sure our tests pass on Chrome browser
     name: E2E on Chrome
     steps:
-      - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Check formatting
-        run: yarn run format:check
+      - nam: checkout
+        uses: actions/checkout@v2
+
       - uses: cypress-io/github-action@v4
         with:
           working-directory: ${{ env.working-directory }}
+          build: yarn run build
           start: yarn start
           browser: chrome
