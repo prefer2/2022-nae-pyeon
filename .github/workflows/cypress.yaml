@@ -19,6 +19,5 @@ jobs:
       - uses: cypress-io/github-action@v4
         with:
           working-directory: ${{ env.working-directory }}
-          build: yarn run build
-          start: yarn start
+          start: npm run start
           browser: chrome
