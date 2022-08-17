@@ -44,20 +44,17 @@ describe("로그인한 사용자 동작", () => {
         username: "승팡",
         email: "email@email.com",
       },
-    })
-      .then(() => {
-        cy.intercept("GET", "/api/v1/teams/me*", {
-          statusCode: 200,
-          body: {
-            totalCount: 0,
-            currentPage: 0,
-            teams: [],
-          },
-        });
-      })
-      .then(() => {
-        cy.contains("아직 참여한 모임이 없어요!").should("be.visible");
-      });
+    });
+    cy.intercept("GET", "/api/v1/teams/me*", {
+      statusCode: 200,
+      body: {
+        totalCount: 0,
+        currentPage: 0,
+        teams: [],
+      },
+    });
+    cy.contains("초기 로딩중").should("be.visible");
+    cy.contains("아직 참여한 모임이 없어요!").should("be.visible");
   });
 
   // beforeEach(() => {
