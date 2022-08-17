@@ -9,7 +9,6 @@ describe("로그인한 사용자 동작", () => {
   });
 
   it("방문하기.", () => {
-    cy.contains("카카오로 시작하기").should("be.visible");
     cy.intercept("GET", "/api/v1/teams/me", {
       statusCode: 200,
       body: {
