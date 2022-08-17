@@ -8,7 +8,7 @@ jobs:
     # let's make sure our tests pass on Chrome browser
     name: E2E on Chrome
     steps:
-      - nam: checkout
+      - name: checkout
         uses: actions/checkout@v2
 
       - uses: cypress-io/github-action@v4
