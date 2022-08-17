@@ -6,6 +6,14 @@ describe("로그인한 사용자 동작", () => {
     cy.clearCookies();
     cy.setCookie("accessToken", "mockAccessToken");
     cy.visit("http://localhost:3000");
+
+    cy.intercept("GET", "/api/v1/members/me", {
+      body: {
+        id: 123,
+        username: "승팡",
+        email: "email@email.com",
+      },
+    }).as("getMe");
   });
 
   // it("가입한 모임이 없는 경우, 참여한 모임이 없다는 안내 메시지를 확인할 수 있다.", () => {
@@ -38,14 +46,6 @@ describe("로그인한 사용자 동작", () => {
   // });
 
   it("방문하기", () => {
-    cy.intercept("GET", "/api/v1/members/me", {
-      body: {
-        id: 123,
-        username: "승팡",
-        email: "email@email.com",
-      },
-    }).as("getMe");
-
     cy.intercept("GET", "/api/v1/teams/me?*", {
       statusCode: 200,
       body: {
