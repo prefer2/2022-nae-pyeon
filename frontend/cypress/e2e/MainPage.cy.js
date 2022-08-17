@@ -37,7 +37,7 @@ describe("로그인한 사용자 동작", () => {
   //   });
   // });
 
-  it("방문하기.", () => {
+  it("방문하기", () => {
     cy.intercept("GET", "/api/v1/members/me", {
       body: {
         id: 123,
@@ -53,7 +53,7 @@ describe("로그인한 사용자 동작", () => {
         teams: [],
       },
     });
-    cy.contains("초기 로딩중").should("be.visible");
+    cy.contains("로딩중").should("be.visible");
     cy.contains("아직 참여한 모임이 없어요!").should("be.visible");
   });
 
