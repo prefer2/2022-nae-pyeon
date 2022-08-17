@@ -23,5 +23,7 @@ jobs:
       - uses: cypress-io/github-action@v4
         with:
           working-directory: ${{ env.working-directory }}
+          build: npm run build
           start: npm run start
+          browser: chrome
           wait-on: "http://localhost:3000"
