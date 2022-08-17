@@ -44,7 +44,7 @@ describe("로그인한 사용자 동작", () => {
         username: "승팡",
         email: "email@email.com",
       },
-    });
+    }).as("getMe");
 
     cy.intercept("GET", "/api/v1/teams/me?*", {
       statusCode: 200,
@@ -55,8 +55,10 @@ describe("로그인한 사용자 동작", () => {
       },
     }).as("getMyTeams");
 
-    cy.wait(3000).then(() => {
-      cy.contains("아직 참여한 모임이 없어요!").should("be.visible");
+    cy.wait("@getMe").then(() => {
+      cy.wait("@getMyTeams").then(() => {
+        cy.contains("아직 참여한 모임이 없어요!").should("be.visible");
+      });
     });
   });
 
