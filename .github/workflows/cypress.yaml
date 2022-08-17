@@ -11,10 +11,14 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
+      - name: Use Node.js 18.0.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - uses: cypress-io/github-action@v4
         with:
           working-directory: ${{ env.working-directory }}
-          install: yarn install
           build: yarn run build
           start: yarn start
           browser: chrome
