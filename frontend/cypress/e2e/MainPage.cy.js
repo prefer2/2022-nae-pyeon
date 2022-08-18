@@ -7,13 +7,13 @@ describe("로그인한 사용자 동작", () => {
     cy.setCookie("accessToken", "mockAccessToken");
     cy.visit("http://localhost:3000");
 
-    cy.intercept("GET", "/api/v1/members/me", {
-      body: {
-        id: 123,
-        username: "승팡",
-        email: "email@email.com",
-      },
-    }).as("getMe");
+    // cy.intercept("GET", "/api/v1/members/me", {
+    //   body: {
+    //     id: 123,
+    //     username: "승팡",
+    //     email: "email@email.com",
+    //   },
+    // }).as("getMe");
   });
 
   // it("가입한 모임이 없는 경우, 참여한 모임이 없다는 안내 메시지를 확인할 수 있다.", () => {
@@ -45,18 +45,18 @@ describe("로그인한 사용자 동작", () => {
   //   });
   // });
 
-  it("방문하기", () => {
-    cy.intercept("GET", "/api/v1/teams/me?*", {
-      statusCode: 200,
-      body: {
-        totalCount: 0,
-        currentPage: 0,
-        teams: [],
-      },
-    }).as("getMyTeams");
+  // it("방문하기", () => {
+  //   cy.intercept("GET", "/api/v1/teams/me?*", {
+  //     statusCode: 200,
+  //     body: {
+  //       totalCount: 0,
+  //       currentPage: 0,
+  //       teams: [],
+  //     },
+  //   }).as("getMyTeams");
 
-    cy.contains("초기 로딩 중").should("be.visible");
-  });
+  //   cy.contains("초기 로딩 중").should("be.visible");
+  // });
 
   // beforeEach(() => {
   //   Cypress.Cookies.debug(true);
@@ -64,24 +64,24 @@ describe("로그인한 사용자 동작", () => {
   //   cy.setCookie("accessToken", "mockAccessToken");
   //   cy.visit("http://localhost:3000");
   // });
-  // it("가입한 모임이 없는 경우, 참여한 모임이 없다는 안내 메시지를 확인할 수 있다.", () => {
-  //   cy.window().then((window) => {
-  //     const { worker, rest } = window.msw;
-  //     worker.use(
-  //       rest.get("/api/v1/teams/me", (req, res, ctx) => {
-  //         const page = +req.url.searchParams.get("page");
-  //         const count = +req.url.searchParams.get("count");
-  //         const result = {
-  //           totalCount: 0,
-  //           currentPage: Number(page),
-  //           teams: [],
-  //         };
-  //         return res.once(ctx.json(result));
-  //       })
-  //     );
-  //   });
-  //   cy.contains("아직 참여한 모임이 없어요!").should("be.visible");
-  // });
+  it("가입한 모임이 없는 경우, 참여한 모임이 없다는 안내 메시지를 확인할 수 있다.", () => {
+    cy.window().then((window) => {
+      const { worker, rest } = window.msw;
+      worker.use(
+        rest.get("/api/v1/teams/me", (req, res, ctx) => {
+          const page = +req.url.searchParams.get("page");
+          const count = +req.url.searchParams.get("count");
+          const result = {
+            totalCount: 0,
+            currentPage: Number(page),
+            teams: [],
+          };
+          return res.once(ctx.json(result));
+        })
+      );
+    });
+    cy.contains("초기 로딩 중").should("be.visible");
+  });
   // it("가입한 모임이 있는 경우, 가입한 모임 카드를 확인할 수 있다.", () => {
   //   cy.window().then((window) => {
   //     const { worker, rest } = window.msw;
