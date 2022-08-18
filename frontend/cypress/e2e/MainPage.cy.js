@@ -36,22 +36,26 @@ describe("로그인한 사용자 동작", () => {
   //   cy.visit("http://localhost:3000");
   // });
   it("가입한 모임이 없는 경우, 참여한 모임이 없다는 안내 메시지를 확인할 수 있다.", () => {
-    cy.window().then((window) => {
-      const { worker, rest } = window.msw;
-      worker.use(
-        rest.get("/api/v1/teams/me", (req, res, ctx) => {
-          const page = +req.url.searchParams.get("page");
-          const count = +req.url.searchParams.get("count");
-          const result = {
-            totalCount: 0,
-            currentPage: Number(page),
-            teams: [],
-          };
-          return res.once(ctx.json(result));
-        })
-      );
+    cy.window()
+      .then((window) => {
+        const { worker, rest } = window.msw;
+        worker.use(
+          rest.get("/api/v1/teams/me", (req, res, ctx) => {
+            const page = +req.url.searchParams.get("page");
+            const count = +req.url.searchParams.get("count");
+            const result = {
+              totalCount: 0,
+              currentPage: Number(page),
+              teams: [],
+            };
+            return res.once(ctx.json(result));
+          })
+        );
+      })
+      .as("getMyTeams");
+    cy.wait("@getMyTeams").then(() => {
+      cy.contains("초기 로딩 중").should("be.visible");
     });
-    cy.contains("초기 로딩 중").should("be.visible");
   });
   // it("가입한 모임이 있는 경우, 가입한 모임 카드를 확인할 수 있다.", () => {
   //   cy.window().then((window) => {
