@@ -52,10 +52,9 @@ describe("로그인한 사용자 동작", () => {
           })
         );
       })
-      .as("getMyTeams");
-    cy.wait("@getMyTeams").then(() => {
-      cy.contains("초기 로딩 중").should("be.visible");
-    });
+      .then(() => {
+        cy.contains("초기 로딩 중").should("be.visible");
+      });
   });
   // it("가입한 모임이 있는 경우, 가입한 모임 카드를 확인할 수 있다.", () => {
   //   cy.window().then((window) => {
