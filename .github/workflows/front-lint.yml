@@ -10,6 +10,10 @@ on:
     branches:
       - develop
 
+defaults:
+  run:
+    working-directory: frontend
+
 jobs:
   run-linters:
     name: Run linters
