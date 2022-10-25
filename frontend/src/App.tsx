@@ -54,6 +54,8 @@ const App = () => {
     );
   }
 
+  console.log("hi");
+
   return (
     <Suspense
       fallback={
